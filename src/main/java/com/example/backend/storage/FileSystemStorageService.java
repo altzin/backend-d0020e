@@ -35,9 +35,9 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public Path store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
-
+        Path newProjectFolder = null;
 
 
         try {
@@ -56,7 +56,7 @@ public class FileSystemStorageService implements StorageService {
 
                 try{
 
-                    Path newProjectFolder = Paths.get(properties.getLocation() + "/" + uuid.substring(0,4));
+                    newProjectFolder = Paths.get(properties.getLocation() + "/" + uuid.substring(0,4));
                     Files.createDirectory(newProjectFolder); //skapar ny projektmapp
                     Files.copy(inputStream, newProjectFolder.resolve(filename),
                             StandardCopyOption.REPLACE_EXISTING);
@@ -71,6 +71,7 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+        return newProjectFolder;
     }
 
     @Override
