@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 @Controller
 public class FileUploadController {
@@ -48,11 +49,11 @@ public class FileUploadController {
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
-        storageService.store(file);
-
+        Path projectPath = storageService.store(file);
+        String pathString = projectPath.toString();
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-
+        Simulation.runSim(file.getOriginalFilename(), pathString);
         return "redirect:/";
     }
 
