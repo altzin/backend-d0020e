@@ -16,6 +16,7 @@ public class Simulation {
         runSim("hej","C:\\Users\\pawel\\Documents\\backend-d0020e-master\\simulations\\fb65\\");
 
     }
+
     public static void runSim(String configFilename, String projectPath){
         int nrOfNodes = 8;
         double TIME_SIM_STOP = 0.5;
