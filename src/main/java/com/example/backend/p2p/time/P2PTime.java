@@ -5,7 +5,7 @@ package com.example.backend.p2p.time;
 public class P2PTime {
 
 	private ExponentialRandomStream nodeSendFile;
-	//private UniformRandomStream customerPickGenerator, customerCheckOutGenerator;
+	private UniformRandomStream sendToNodesGenerator, mAPGenerator;
 
 	/**
 	 * Construct a new Time Object
@@ -14,8 +14,10 @@ public class P2PTime {
 	 * @param seed
 	 */
 
-	public P2PTime(double lambda, long seed) {
+	public P2PTime(double lambda, long seed, int nrOfNodes) {
 		this.nodeSendFile = new ExponentialRandomStream(lambda, seed);
+		this.sendToNodesGenerator = new UniformRandomStream(0, nrOfNodes, seed);
+		this.mAPGenerator = new UniformRandomStream(-0.2, 0.2, seed);
 	}
 
 	/**
@@ -26,5 +28,11 @@ public class P2PTime {
 	public double timeSendNextFile() {
 		return nodeSendFile.next();
 	}
-	
+
+	public int nrSendToNodes() {
+		return sendToNodesGenerator.nextInt();
+	}
+	public double nextMap(){
+		return mAPGenerator.next();
+	}
 }

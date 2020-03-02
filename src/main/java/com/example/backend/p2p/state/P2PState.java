@@ -15,12 +15,19 @@ public class P2PState extends SimState {
 	private final long TIME_SEED;
 
     public Node[] nodesList;
+    public Link[][] linksList;
     private CreateNode nodeSpawn;
+    private CreateLink linkSpawn;
 
 	// Event descriptions
 	private String eventDescription;
 	private String nodeWhoPerformedEvent;
-	
+
+
+	private Node source;
+	private Node destination;
+	private double weight;
+
 	private P2PTime p2pTime;
 
 	/**
@@ -37,11 +44,13 @@ public class P2PState extends SimState {
     	//this.ARRIVAL_SPEED = ARRIVAL_SPEED;
         this.TIME_SEED = TIME_SEED;
         this.nodesList = new Node[nrOfNodes];
+        this.linksList = new Link[nrOfNodes][nrOfNodes];
         this.TIME_SIM_STOP = TIME_SIM_STOP;
         //this.nodesList = new Node[nrOfNodes];
         this.nodeSpawn = new CreateNode();
+        this.linkSpawn = new CreateLink(weight, source, destination);
         this.nrOfNodes = nodesList.length;
-		this.p2pTime = new P2PTime(ARRIVAL_SPEED,TIME_SEED);
+		this.p2pTime = new P2PTime(ARRIVAL_SPEED,TIME_SEED, nrOfNodes);
     }
 
     /**
@@ -51,6 +60,16 @@ public class P2PState extends SimState {
     public Node createNewNode(){
         return nodeSpawn.newNode();
     }
+
+	/**
+	 * Spawns a new link
+	 *
+	 * @param weight
+	 * @param source
+	 * @param destination
+	 * @return
+	 */
+	public Link createNewLink(double weight, Node source, Node destination){return linkSpawn.newLink(weight, source, destination);}
 
     @Override
     public void updateState(Event event) {
@@ -94,6 +113,8 @@ public class P2PState extends SimState {
 	public Node getNode(int id) {
 		return nodesList[id];
 	}
+
+	public double getNodeMap(int id){return nodesList[id].getMap();}
 	/**
 	 * @return timestamp for events
 	 */
@@ -101,7 +122,11 @@ public class P2PState extends SimState {
 		return elapsedTime;
 	}
 
+	public int getNextNrOfNodes(){return p2pTime.nrSendToNodes();}
 
+	public double getNextMap(){return p2pTime.nextMap();}
+
+	public double getNextTime(){return p2pTime.timeSendNextFile();}
 
 	public int getNrOfNodes() {
 		return nrOfNodes;

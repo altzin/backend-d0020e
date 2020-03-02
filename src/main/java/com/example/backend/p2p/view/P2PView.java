@@ -61,7 +61,11 @@ public class P2PView extends SimView {
     	temp.matrixAdd(state.getEventDescription());
     	if(state.getNodeWhoPerformedEvent() != "-") {
     		result += state.getNodeWhoPerformedEvent();
+    		result += "";
+			result += Double.toString(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
+
     		temp.matrixAdd(state.getNodeWhoPerformedEvent());
+    		temp.matrixAdd(Double.toString(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
     	}
     	}
     	return result;
