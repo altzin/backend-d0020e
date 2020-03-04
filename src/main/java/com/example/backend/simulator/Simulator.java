@@ -30,9 +30,7 @@ public class Simulator {
 		while (state.simulatorIsRunning) {
 			queue.getEvent().runEvent();
 			queue.removeEvent();
-
 		}
-		System.out.println("Done creating simulation files");
 	}
 
 }

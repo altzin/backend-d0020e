@@ -52,11 +52,8 @@ public class FileUploadController {
         Path projectPath = storageService.store(file);
         String pathString = projectPath.toString();
         redirectAttributes.addFlashAttribute("message",
-
-                "You successfully uploaded " + file.getOriginalFilename() + " to the project folder " + pathString.substring(12,16) + "!");
-
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
         Simulation.runSim(file.getOriginalFilename(), pathString);
-
         return "redirect:/";
     }
 

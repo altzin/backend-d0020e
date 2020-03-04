@@ -5,7 +5,7 @@ public class CreateNode{
 	 * This class creates new Nodes
 	 */
     private int id;
-    private double map;
+    private int map;
 
     /**
      * Creates the first Node

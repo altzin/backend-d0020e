@@ -27,15 +27,15 @@ public class UniformRandomStream {
 	 */
 
 	public UniformRandomStream(double lower, double upper, long seed) {
-		this.rand = new Random(seed);
+		rand = new Random(seed);
 		this.lower = lower;
 		this.width = upper - lower;
 	}
 
 	/**
 	 * 
-	 * @param lower lowest value
-	 * @param upper highest value
+	 * @param lower lowest time for an event
+	 * @param upper highest time for an event
 	 */
 	public UniformRandomStream(double lower, double upper) {
 		rand = new Random();
@@ -50,8 +50,7 @@ public class UniformRandomStream {
 	public double next() {
 		return lower + rand.nextDouble() * width;
 	}
-
-	public int nextInt(){return rand.nextInt();}
+	
 
 	
 

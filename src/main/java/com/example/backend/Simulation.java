@@ -13,17 +13,16 @@ import java.nio.file.Paths;
 
 public class Simulation {
     public static void main(String[] args) {
-        runSim("hej","/Users/andre/Documents/backend-d0020e/simulations/");
+        runSim("hej","C:\\Users\\pawel\\Documents\\backend-d0020e-master\\simulations\\fb65\\");
 
     }
-
     public static void runSim(String configFilename, String projectPath){
-        int nrOfNodes = 5;
+        int nrOfNodes = 8;
         double TIME_SIM_STOP = 0.5;
         long TIME_SEED = 1234;
         double ARRIVAL_SPEED = 32;
         System.out.println(projectPath);
-        P2PView view = new P2PView(projectPath, nrOfNodes);
+        P2PView view = new P2PView(projectPath + "\\" , nrOfNodes);
         EventQueue eventQueue = new EventQueue();
         P2PState state = new P2PState(ARRIVAL_SPEED, TIME_SEED, nrOfNodes,eventQueue, TIME_SIM_STOP);
 
