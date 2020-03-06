@@ -36,6 +36,7 @@ public class FileUploadController {
         return "uploadForm";
     }
 
+    @CrossOrigin
     @GetMapping("/files/{folder}/{filename}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename, @PathVariable String folder) {
