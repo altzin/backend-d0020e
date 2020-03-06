@@ -21,11 +21,13 @@ public class NodeSendFile extends Event {
         this.source = source;
         this.destination = destination;
         super.eventUserDescription = source.toString();
+        super.nodeDestination = destination.toString();
         super.executeTime = time;
     }
     @Override
     public void runEvent() {
     	P2PState s = (P2PState) state;
+    	//s.source = source;
     	s.updateState(this);
     	double nextExecuteTime = s.getElapsedTime() + 0.01;
     	eventQueue.addEvent(new LinkActivate(s, s.linksList[source.toInt()][destination.toInt()], source, destination, nextExecuteTime));

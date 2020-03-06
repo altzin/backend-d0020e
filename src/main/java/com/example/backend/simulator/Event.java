@@ -15,6 +15,7 @@ public abstract class Event {
 	protected SimState state;
 	protected String eventDescription;
 	protected String eventUserDescription;
+	protected String nodeDestination;
 	protected EventQueue eventQueue;
 	
 	
@@ -57,6 +58,10 @@ public abstract class Event {
 	 */
 	public void addEventToQueue(Event event) {
 		this.eventQueue.addEvent(event);
+	}
+
+	public String getNodeDestination(){
+		return nodeDestination;
 	}
 	
 	/**

@@ -10,6 +10,7 @@ public class LinkActivate extends Event {
     private Link link;
     private Node source;
     private Node destination;
+
     private double value;
 
     public LinkActivate(P2PState state,Link link, Node source, Node destination, double time){
@@ -18,6 +19,7 @@ public class LinkActivate extends Event {
         super.eventDescription = "Link Activate";
         this.source = source;
         this.destination = destination;
+        super.nodeDestination = destination.toString();
         super.eventUserDescription = source.toString();
         super.executeTime = time;
     }

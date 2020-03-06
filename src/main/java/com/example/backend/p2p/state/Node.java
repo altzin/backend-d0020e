@@ -27,6 +27,14 @@ public class Node{
      check so map stays in range between 0-1
      */
     public void addToMap(double value){
-        this.map = this.map + value;
+        if (this.map + value/10 >= 1){
+            this.map = 1;
+        }
+        else if (this.map + value/10 <= 0){
+            this.map = 0;
+        }
+        else {
+            this.map = this.map + value/10;
+        }
     }
 }

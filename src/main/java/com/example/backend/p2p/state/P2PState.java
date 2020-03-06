@@ -22,6 +22,7 @@ public class P2PState extends SimState {
 	// Event descriptions
 	private String eventDescription;
 	private String nodeWhoPerformedEvent;
+ 	private String nodeDestination;
 
 
 	private Node source;
@@ -82,6 +83,8 @@ public class P2PState extends SimState {
 		// Updates which node who performed the event.
 		nodeWhoPerformedEvent = event.getEventUserDescription();
 
+		//Updates destination
+		nodeDestination = event.getNodeDestination();
 		// Sets time to be the time that the event was executed.
 		elapsedTime = event.getExTime();
 
@@ -108,6 +111,9 @@ public class P2PState extends SimState {
 	 */
 	public String getNodeWhoPerformedEvent() {
 		return nodeWhoPerformedEvent;
+	}
+	public String getNodeDestination(){
+		return nodeDestination;
 	}
 	
 	public Node getNode(int id) {

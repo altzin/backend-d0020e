@@ -13,13 +13,13 @@ import java.nio.file.Paths;
 
 public class Simulation {
     public static void main(String[] args) {
-        runSim("hej","/Users/pawel/Documents/backend-d0020e/simulations/");
+        runSim("hej","/Users/andre/Documents/backend-d0020e/simulations/");
 
     }
 
     public static void runSim(String configFilename, String projectPath){
         int nrOfNodes = 5;
-        double TIME_SIM_STOP = 0.5;
+        double TIME_SIM_STOP = 99;
         long TIME_SEED = 1234;
         double ARRIVAL_SPEED = 32;
         System.out.println(projectPath);

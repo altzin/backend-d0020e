@@ -18,6 +18,7 @@ public class NodeReceivedFile extends Event {
 		this.source = source;
 		this.destination = destination;
 		super.eventUserDescription = destination.toString();
+		super.nodeDestination = destination.toString();
 		super.executeTime = time;
 		this.value = value;
 	}
