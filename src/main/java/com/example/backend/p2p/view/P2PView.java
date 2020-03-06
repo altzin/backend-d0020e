@@ -4,6 +4,7 @@ package com.example.backend.p2p.view;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -55,8 +56,8 @@ public class P2PView extends SimView {
 
     		temp.matrixNewLine();
     		result ="";
-    		result += state.getElapsedTime();
-    		temp.matrixAdd(Double.toString(state.getElapsedTime()));
+    		result += cutDecimals(state.getElapsedTime());
+    		temp.matrixAdd(cutDecimals(state.getElapsedTime()));
     		result += state.getEventDescription();
     		temp.matrixAdd(state.getEventDescription());
     		if(state.getNodeWhoPerformedEvent() != "-") {
@@ -64,13 +65,14 @@ public class P2PView extends SimView {
     			result += "";
 
     			//source
-				result +=  Double.toString(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
+				result +=  cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
 				result += "";
 				temp.matrixAdd(state.getNodeWhoPerformedEvent());
-				temp.matrixAdd("map:"+Double.toString(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
-				//destinaation
-				result +=  Double.toString(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
+				//destination
+				result +=  cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
 				temp.matrixAdd(state.getNodeDestination());
+				temp.matrixAdd("map:"+cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
+
 
     	}
     	}
@@ -91,7 +93,10 @@ public class P2PView extends SimView {
 			System.out.println("An error occured while writing result to file at: \n" + filePath);
 		}
     }
-    
+
+	private String cutDecimals(double d) {
+		return new DecimalFormat("#.##").format(d);
+	}
 	@Override
 	public void printConsole() {
 		System.out.println(result);
