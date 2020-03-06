@@ -4,6 +4,7 @@ import com.example.backend.p2p.state.Link;
 import com.example.backend.p2p.state.Node;
 import com.example.backend.p2p.state.P2PState;
 import com.example.backend.simulator.Event;
+import java.util.*;
 
 public class LinkActivate extends Event {
     private Link link;
@@ -25,9 +26,8 @@ public class LinkActivate extends Event {
     public void runEvent() {
         P2PState s = (P2PState) state;
         s.updateState(this);
-        value = link.getWeight();
-        value = value * s.getNextMap();
-        source.addToMap(0.1);
-        eventQueue.addEvent(new NodeReceivedFile(s, source, destination, 0.01));
+        value = link.getNext();
+        //source.addToMap(value);
+        eventQueue.addEvent(new NodeReceivedFile(s, source, destination, s.getElapsedTime()+0.01, value));
     }
 }

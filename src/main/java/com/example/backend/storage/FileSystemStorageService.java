@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 public class FileSystemStorageService implements StorageService {
 
     private Path rootLocation;
-    private final String uuid = UUID.randomUUID().toString(); //.replace("-", "");
+    private String uuid;
     private final StorageProperties properties;
 
     @Autowired
@@ -56,7 +56,7 @@ public class FileSystemStorageService implements StorageService {
 
                 try{
 
-                    newProjectFolder = Paths.get(properties.getLocation() + "/" + uuid.substring(0,4));
+                    newProjectFolder = Paths.get(properties.getLocation() + "/" +  UUID.randomUUID().toString().substring(0,4));
                     Files.createDirectory(newProjectFolder); //skapar ny projektmapp
                     Files.copy(inputStream, newProjectFolder.resolve(filename),
                             StandardCopyOption.REPLACE_EXISTING);

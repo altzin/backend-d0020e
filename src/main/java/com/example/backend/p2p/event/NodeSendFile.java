@@ -1,6 +1,6 @@
 package com.example.backend.p2p.event;
 
-
+import com.example.backend.p2p.state.Link;
 import com.example.backend.p2p.state.Node;
 import com.example.backend.p2p.state.P2PState;
 import com.example.backend.simulator.Event;
@@ -8,7 +8,6 @@ import com.example.backend.simulator.Event;
 public class NodeSendFile extends Event {
 	private Node source;
 	private Node destination;
-	
 	/**
 	 * 
 	 * @param state
@@ -29,6 +28,7 @@ public class NodeSendFile extends Event {
     	P2PState s = (P2PState) state;
     	s.updateState(this);
     	double nextExecuteTime = s.getElapsedTime() + 0.01;
-    	eventQueue.addEvent(new NodeReceivedFile(s, source, destination, nextExecuteTime));
+    	eventQueue.addEvent(new LinkActivate(s, s.linksList[source.toInt()][destination.toInt()], source, destination, nextExecuteTime));
+    	//eventQueue.addEvent(new NodeReceivedFile(s, source, destination, nextExecuteTime));
     }
 }

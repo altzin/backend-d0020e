@@ -25,11 +25,10 @@ public class CreateLink {
 
     /**
      *
-     * @param weight
      * @param source
      * @param destination
      * @return Link
      */
-    public Link newLink(double weight, Node source, Node destination){ return new Link(weight, source, destination);
+    public Link newLink(Node source, Node destination){ return new Link(source, destination);
     }
 }

@@ -53,15 +53,19 @@ public class P2PView extends SimView {
     		int node = Integer.parseInt(state.getNodeWhoPerformedEvent());
     		csvIO temp = csv.get(node);
 
-    	temp.matrixNewLine();
-    	result ="";
-    	result += state.getElapsedTime();
-    	temp.matrixAdd(Double.toString(state.getElapsedTime()));
-    	result += state.getEventDescription();
-    	temp.matrixAdd(state.getEventDescription());
-    	if(state.getNodeWhoPerformedEvent() != "-") {
-    		result += state.getNodeWhoPerformedEvent();
-    		temp.matrixAdd(state.getNodeWhoPerformedEvent());
+    		temp.matrixNewLine();
+    		result ="";
+    		result += state.getElapsedTime();
+    		temp.matrixAdd(Double.toString(state.getElapsedTime()));
+    		result += state.getEventDescription();
+    		temp.matrixAdd(state.getEventDescription());
+    		if(state.getNodeWhoPerformedEvent() != "-") {
+    			result += state.getNodeWhoPerformedEvent();
+    			result += "";
+				result +=  Double.toString(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
+
+    			temp.matrixAdd(state.getNodeWhoPerformedEvent());
+    			temp.matrixAdd("map:"+Double.toString(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
     	}
     	}
     	return result;
