@@ -30,8 +30,8 @@ public class P2PTime {
 		//return nodeSendFile.next();
 	}
 
-	public int nrSendToNodes() {
-		return sendToNodesGenerator.nextInt();
+	public int nrSendToNodes(int i) {
+		return sendToNodesGenerator.nextInt(i);
 	}
 	public double nextMap(){
 		return mAPGenerator.next();

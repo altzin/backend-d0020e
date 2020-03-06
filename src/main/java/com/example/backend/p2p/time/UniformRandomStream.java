@@ -51,7 +51,7 @@ public class UniformRandomStream {
 		return lower + rand.nextDouble() * width;
 	}
 
-	public int nextInt(){return rand.nextInt();}
+	public int nextInt(int i){return rand.nextInt(i);}
 
 	
 

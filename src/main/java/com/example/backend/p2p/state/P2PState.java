@@ -128,7 +128,7 @@ public class P2PState extends SimState {
 		return elapsedTime;
 	}
 
-	public int getNextNrOfNodes(){return p2pTime.nrSendToNodes();}
+	public int getNextNrOfNodes(){return p2pTime.nrSendToNodes(nrOfNodes);}
 
 	public double getNextMap(){return p2pTime.nextMap();}
 
