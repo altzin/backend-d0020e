@@ -21,4 +21,8 @@ public class CreateNode{
     public Node newNode(){
         return new Node(id++, 0);
     }
+
+    public Node newNode(int i){
+        return new Node(id++, i);
+    }
 }

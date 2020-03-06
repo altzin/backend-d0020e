@@ -24,6 +24,7 @@ public class P2PStartEvent extends StartEvent {
          */
         double nextExecuteTime = s.getElapsedTime();
         for(int i=0; i<s.getNrOfNodes(); i++){
+
             s.nodesList[i] = s.createNewNode();
         //    nextExecuteTime = s.getElapsedTime() + 0.01;
         }

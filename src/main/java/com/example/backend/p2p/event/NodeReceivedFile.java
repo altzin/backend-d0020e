@@ -29,14 +29,13 @@ public class NodeReceivedFile extends Event {
     public void runEvent() {
 		P2PState s = (P2PState) state;
 		source.addToMap(value);
-		System.out.println(value);
 		s.updateState(this);
 		//int nextNrOfNodes = s.getNextNrOfNodes();
 		nextExecuteTime = s.getElapsedTime() + s.getNextTime();
 		nrOfNodesSend = s.getNextNrOfNodes();
 		ArrayList<Integer> destinationContainer = new ArrayList<>();
 		int temp = s.getNextNrOfNodes();
-		System.out.println("SLUMPAT: " + temp);
+
 //		for (int i = 0; i < nrOfNodesSend; i++) {
 //			while (destinationContainer.contains(temp)) {
 //				temp = s.getNextNrOfNodes();
@@ -44,9 +43,10 @@ public class NodeReceivedFile extends Event {
 		while (temp == source.toInt()) {
 			temp = s.getNextNrOfNodes();
 		}
-			System.out.println("slumpat:" + temp);
+
 			destinationContainer.add(temp);
 			nextExecuteTime = s.getElapsedTime()+ 0.1;
+			source.addToEvent();
 			eventQueue.addEvent(new NodeSendFile(s, source, s.nodesList[temp], nextExecuteTime));
 		}
 	}

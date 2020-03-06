@@ -39,13 +39,15 @@ public class P2PView extends SimView {
            // printFile(Filepath, true);
         	try {
 				for(int i = 0; i<csv.size(); i++) {
+					csv.get(i).matrixNewLine();
+					csv.get(i).matrixAdd(Integer.toString(state.getNode(i).getEventCounter()));
 					csv.get(i).saveCsvMatrix();
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            printConsole();
+            //printConsole();
         }
     }
     public String generateProgress(P2PState state) {

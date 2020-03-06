@@ -24,7 +24,7 @@ public class P2PState extends SimState {
 	private String nodeWhoPerformedEvent;
  	private String nodeDestination;
 
-
+	//Statistics
 	private Node source;
 	private Node destination;
 	private double weight;
