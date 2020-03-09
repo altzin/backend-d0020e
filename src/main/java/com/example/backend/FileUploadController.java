@@ -40,7 +40,7 @@ public class FileUploadController {
 						"serveFile", path.getFileName().toString(),FOLDER).build().toString())
 				.collect(Collectors.toList()));*/
 
-        return "localhost:3000/";
+        return "localhost:3000/simulator";
     }
 
     @CrossOrigin
