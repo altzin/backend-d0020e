@@ -40,7 +40,7 @@ public class FileUploadController {
 						"serveFile", path.getFileName().toString(),FOLDER).build().toString())
 				.collect(Collectors.toList()));*/
 
-        return "uploadForm";
+        return "localhost:3000/";
     }
 
     @CrossOrigin
@@ -67,27 +67,26 @@ public class FileUploadController {
 
         Simulation.runSim(simulationFolder,nodes);
 
-
         simulationResult.setSimulationID(generatedID);
-
 
         return simulationResult;
 
     }
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public SimulationResult handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
         Path projectPath = storageService.store(file);
-        String pathString = projectPath.toString();
-        redirectAttributes.addFlashAttribute("message",
-
-                "You successfully uploaded " + file.getOriginalFilename() + " to the project folder " + pathString.substring(12,16) + "!");
+        String pathString = projectPath.toString()+ "/";
+        //redirectAttributes.addFlashAttribute("message","You successfully uploaded " + file.getOriginalFilename() + " to the project folder " + pathString.substring(12,16) + "!");
 
         Simulation.runSim(file.getOriginalFilename(), pathString);
+        SimulationResult simulationResult = new SimulationResult();
+        simulationResult.setSimulationID(pathString.substring(12,16));
+        return simulationResult;
 
-        return "redirect:/";
+
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
