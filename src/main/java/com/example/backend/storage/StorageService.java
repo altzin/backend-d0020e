@@ -12,6 +12,8 @@ public interface StorageService {
 
     Path store(MultipartFile file);
 
+    Path initializeProjectFolder(String simulationId);
+
     Stream<Path> loadAll();
 
     Path load(String folder,String filename);

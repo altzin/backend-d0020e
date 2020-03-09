@@ -1,10 +1,15 @@
 package com.example.backend;
 
+import com.example.backend.storage.SimulationModel;
+import com.example.backend.storage.SimulationResult;
 import com.example.backend.storage.StorageFileNotFoundException;
 import com.example.backend.storage.StorageService;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class FileUploadController {
@@ -44,6 +51,28 @@ public class FileUploadController {
         Resource file = storageService.loadAsResource(folder,filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/process",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public SimulationResult process(@RequestBody SimulationModel simulationModel) throws Exception {
+
+        SimulationResult simulationResult = new SimulationResult();
+
+        String generatedID = UUID.randomUUID().toString().substring(0,4); //generera nytt id
+
+        String simulationFolder = storageService.initializeProjectFolder(generatedID).toString() + "/"; //skapa en folder med id som namn
+
+        int nodes = Integer.parseInt(simulationModel.getNodes());
+
+        Simulation.runSim(simulationFolder,nodes);
+
+
+        simulationResult.setSimulationID(generatedID);
+
+
+        return simulationResult;
+
     }
 
     @PostMapping("/")

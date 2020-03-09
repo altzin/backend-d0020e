@@ -37,7 +37,7 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public Path store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
-        Path newProjectFolder = null;
+        Path newProjectFolder;
 
 
         try {
@@ -71,6 +71,28 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+        return newProjectFolder;
+    }
+
+    @Override
+    public Path initializeProjectFolder(String simulationId) {
+
+        Path newProjectFolder;
+
+
+        try {
+
+            newProjectFolder = Paths.get(properties.getLocation() + "/" +  simulationId);
+            Files.createDirectory(newProjectFolder); //skapar ny projektmapp
+
+        }catch (FileAlreadyExistsException exd){
+            throw new StorageException("FOLDER ALREADY EXISTS", exd);
+        }
+        catch (IOException e) {
+            throw new StorageException("Failed to store file ", e);
+        }
+
+
         return newProjectFolder;
     }
 
