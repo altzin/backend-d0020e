@@ -34,13 +34,7 @@ public class FileUploadController {
     }
 
     @GetMapping("/")
-    public String listUploadedFiles(Model model) throws IOException {
-
-		/*model.addAttribute("files", storageService.loadAll().map(
-				path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-						"serveFile", path.getFileName().toString(),FOLDER).build().toString())
-				.collect(Collectors.toList()));*/
-
+    public String index(Model model) throws IOException {
         return "localhost:3000/simulator";
     }
 
@@ -67,17 +61,21 @@ public class FileUploadController {
     }
 
 
+    public void setLastCreatedSimulation(String lastCreatedSimulation) {
+        this.lastCreatedSimulation = lastCreatedSimulation;
+    }
 
+    //Ta emot json och skapa simulering, skicka respons tillbaka till frontend
     @ResponseBody
     @PostMapping(value = "/process",consumes = MediaType.APPLICATION_JSON_VALUE)
     public SimulationResult process(@RequestBody SimulationModel simulationModel) throws Exception {
 
-        SimulationResult simulationResult = new SimulationResult();
 
         String generatedID = UUID.randomUUID().toString().substring(0,4); //generera nytt id
 
         String simulationFolder = storageService.initializeProjectFolder(generatedID).toString() + "/"; //skapa en folder med id som namn
-        lastCreatedSimulation = generatedID;
+
+        setLastCreatedSimulation(generatedID);
 
         int nodes = Integer.parseInt(simulationModel.getNodes());
         double runtime = Double.parseDouble(simulationModel.getRuntime());
@@ -86,8 +84,9 @@ public class FileUploadController {
 
         Simulation.simFromConfig(simulationFolder,nodes,runtime,seed,arrivalSpeed);
 
+        //Fixa responsen
+        SimulationResult simulationResult = new SimulationResult();
         simulationResult.setSimulationID(generatedID);
-
         return simulationResult;
 
     }
