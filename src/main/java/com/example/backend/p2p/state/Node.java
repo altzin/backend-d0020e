@@ -6,7 +6,7 @@ public class Node{
     private double map;
     private double mean_map;
     private double sum_map;
-    private int nrOfEvents;
+    private int nrOfSentFiles;
 
     /**
      *  TODO
@@ -21,7 +21,7 @@ public class Node{
         this.map = map;
         this.sum_map = map;
         this.mean_map = map;
-        this.nrOfEvents = 1;
+        this.nrOfSentFiles = 1;
     }
     /**
      * @return Node id String
@@ -32,30 +32,40 @@ public class Node{
     public int toInt(){return id; }
 
     public double getMap(){return map;}
-    /*
-    Todo
-     check so sum_map stays in range between 0-1, value is more than what is added
+
+    /**
+     *  This method adds a value to the mAP and checks so it stays in
+     *  the range 0-1.
+     * @param value
      */
     public void addToMap(double value){
         if (this.map + value >= 1){
-            this.sum_map += (1 - map);
+            //this.sum_map += (1 - map);
             this.map = 1;
+            this.sum_map +=map;
 
         }
         else if (this.map + value <= 0){
-            this.sum_map -= map;
+            //this.sum_map -= map;
             this.map = 0;
+            this.sum_map +=map;
 
         }
         else {
-            this.sum_map += value;
+            //this.sum_map += value;
             this.map = this.map + value;
+            this.sum_map +=map;
 
         }
     }
-    public void addToEvent(){ nrOfEvents++;}
+
+    /**
+     *
+     */
+    public void addToEvent(){ nrOfSentFiles++;}
+
     public int getEventCounter(){
-        return nrOfEvents;
+        return nrOfSentFiles;
     }
-    public double getMeanMap(){return sum_map/nrOfEvents; }
+    public double getMeanMap(){return sum_map/nrOfSentFiles; }
 }

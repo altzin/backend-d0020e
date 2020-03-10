@@ -7,6 +7,12 @@ import com.example.backend.simulator.Event;
 
 import java.util.ArrayList;
 
+/**
+ * Creates a new NodeReceivedFile class
+ * This class is used when a node has received a file
+ * and simulates that the receiving node changes the mAP value
+ * for the sending node.
+ */
 public class NodeReceivedFile extends Event {
 	
 	private Node source;
@@ -14,7 +20,16 @@ public class NodeReceivedFile extends Event {
 	private double nextExecuteTime;
 	private double value;
 	private int nrOfNodesSend;
-	
+	private int newDestination;
+
+	/**
+	 * Creates a new instance of NodeReceivedFile class
+	 * @param state
+	 * @param source
+	 * @param destination
+	 * @param time
+	 * @param value
+	 */
 	public NodeReceivedFile(P2PState state, Node source, Node destination, double time, double value) {
 		super(state);
 		super.eventDescription = "Node received file";
@@ -26,30 +41,26 @@ public class NodeReceivedFile extends Event {
 		this.value = value;
 	}
     @Override
+	/**
+	 * Executes NodeReceivedFile event and creates a new
+	 * NodeSendFile event for the source node.
+	 *
+	 */
     public void runEvent() {
 		P2PState s = (P2PState) state;
 		source.addToMap(value);
 		s.updateState(this);
-		//int nextNrOfNodes = s.getNextNrOfNodes();
 		nextExecuteTime = s.getElapsedTime() + s.getNextTime();
 		nrOfNodesSend = s.getNextNrOfNodes();
-		ArrayList<Integer> destinationContainer = new ArrayList<>();
-		int temp = s.getNextNrOfNodes();
-
-//		for (int i = 0; i < nrOfNodesSend; i++) {
-//			while (destinationContainer.contains(temp)) {
-//				temp = s.getNextNrOfNodes();
-//			}
-		while (temp == source.toInt()) {
-			temp = s.getNextNrOfNodes();
+		newDestination = s.getNextNrOfNodes();
+		while (newDestination == source.toInt()) {
+			newDestination = s.getNextNrOfNodes();
 		}
-
-			destinationContainer.add(temp);
-			nextExecuteTime = s.getElapsedTime()+ 0.1;
-			source.addToEvent();
-			eventQueue.addEvent(new NodeSendFile(s, source, s.nodesList[temp], nextExecuteTime));
-		}
+		nextExecuteTime = s.getElapsedTime()+ 0.1;
+		source.addToEvent();
+		eventQueue.addEvent(new NodeSendFile(s, source, s.nodesList[newDestination], nextExecuteTime));
 	}
+}
 
 
 

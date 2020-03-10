@@ -10,7 +10,10 @@ public class CreateLink {
     private Node destination;
 
     /**
-     * Creates the first link
+     *
+     * @param weight
+     * @param source
+     * @param destination
      */
     public CreateLink(double weight, Node source, Node destination){
         this.weight = weight;
@@ -24,7 +27,7 @@ public class CreateLink {
     }
 
     /**
-     *
+     * Creates a new link with weight = 1
      * @param source
      * @param destination
      * @return Link

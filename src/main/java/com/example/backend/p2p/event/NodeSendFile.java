@@ -5,6 +5,9 @@ import com.example.backend.p2p.state.Node;
 import com.example.backend.p2p.state.P2PState;
 import com.example.backend.simulator.Event;
 
+/**
+ * This class creates a new event for a Node to send a file to some other node.
+ */
 public class NodeSendFile extends Event {
 	private Node source;
 	private Node destination;
@@ -24,13 +27,15 @@ public class NodeSendFile extends Event {
         super.nodeDestination = destination.toString();
         super.executeTime = time;
     }
-    @Override
+
+	/**
+	 * Executes a Send File event
+	 */
+	@Override
     public void runEvent() {
     	P2PState s = (P2PState) state;
-    	//s.source = source;
     	s.updateState(this);
     	double nextExecuteTime = s.getElapsedTime() + 0.01;
     	eventQueue.addEvent(new LinkActivate(s, s.linksList[source.toInt()][destination.toInt()], source, destination, nextExecuteTime));
-    	//eventQueue.addEvent(new NodeReceivedFile(s, source, destination, nextExecuteTime));
     }
 }

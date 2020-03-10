@@ -47,7 +47,6 @@ public class P2PState extends SimState {
         this.nodesList = new Node[nrOfNodes];
         this.linksList = new Link[nrOfNodes][nrOfNodes];
         this.TIME_SIM_STOP = TIME_SIM_STOP;
-        //this.nodesList = new Node[nrOfNodes];
         this.nodeSpawn = new CreateNode();
         this.linkSpawn = new CreateLink(weight, source, destination);
         this.nrOfNodes = nodesList.length;
@@ -130,8 +129,6 @@ public class P2PState extends SimState {
 	}
 
 	public int getNextNrOfNodes(){return p2pTime.nrSendToNodes(nrOfNodes);}
-
-	public double getNextMap(){return p2pTime.nextMap();}
 
 	public double getNextTime(){return p2pTime.timeSendNextFile();}
 

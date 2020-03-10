@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Link {
     private double weight;
-    //private UniformRandomStream rand;
-    private Random rand;
+    private UniformRandomStream rand;
+    //private Random rand;
     private Node source;
     private Node destination;
 
@@ -16,9 +16,9 @@ public class Link {
         //this.destination = destination;
   //  }
     public Link(Node source, Node destination){
-        //this.rand = new UniformRandomStream(-0.2,0.2,1234567);
+        this.rand = new UniformRandomStream(-0.2,0.2,1234567);
         //this.weight = rand.next();
-        this.rand = new Random();
+        //this.rand = new Random();
         this.source = source;
         this.destination = destination;
     }
@@ -27,8 +27,8 @@ public class Link {
 
     public double getNext(){
         //Random normDist = new Random();
-        //return rand.next();
+        return rand.next();
 
-        return rand.nextGaussian() *0.2;
+        //return rand.nextGaussian() *0.2;
     }
 }
