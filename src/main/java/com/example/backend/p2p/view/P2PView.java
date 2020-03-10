@@ -74,6 +74,8 @@ public class P2PView extends SimView {
 				result +=  cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
 				temp.matrixAdd(state.getNodeDestination());
 				temp.matrixAdd("map:"+cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
+				temp.matrixAdd("Mean_Map:"+cutDecimals(state.getMeanMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
+				temp.matrixAdd("Counter: "+state.getEventCounter((Integer.parseInt(state.getNodeWhoPerformedEvent()))));
 
 
     	}
@@ -97,7 +99,7 @@ public class P2PView extends SimView {
     }
 
 	private String cutDecimals(double d) {
-		return new DecimalFormat("#.##").format(d);
+		return new DecimalFormat("#.####").format(d);
 	}
 	@Override
 	public void printConsole() {
