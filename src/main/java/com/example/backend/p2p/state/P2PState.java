@@ -85,6 +85,7 @@ public class P2PState extends SimState {
 
 		//Updates destination
 		nodeDestination = event.getNodeDestination();
+
 		// Sets time to be the time that the event was executed.
 		elapsedTime = event.getExTime();
 
@@ -137,4 +138,8 @@ public class P2PState extends SimState {
 	public int getNrOfNodes() {
 		return nrOfNodes;
 	}
+
+	public double getMeanMap(int id){return nodesList[id].getMeanMap();}
+
+	public int getEventCounter(int id){return nodesList[id].getEventCounter();}
 }
