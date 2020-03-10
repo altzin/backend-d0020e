@@ -12,10 +12,7 @@ import java.io.File;
 import java.nio.file.Paths;
 
 public class Simulation {
-    public static void main(String[] args) {
-        runSim("hej","/Users/andre/Documents/backend-d0020e/simulations/");
 
-    }
 
     public static void runSim(String configFilename, String projectPath){
         int nrOfNodes = 5;
@@ -39,11 +36,11 @@ public class Simulation {
     }
 
 
-    public static void runSim(String projectPath,int nodes){
+    public static void simFromConfig(String projectPath,int nodes,double runtime, long seed, double arrivalSpeed){
 
-        double TIME_SIM_STOP = 99;
-        long TIME_SEED = 1234;
-        double ARRIVAL_SPEED = 32;
+        double TIME_SIM_STOP = runtime;
+        long TIME_SEED = seed;
+        double ARRIVAL_SPEED = arrivalSpeed;
 
         System.out.println(projectPath);
         P2PView view = new P2PView(projectPath, nodes);

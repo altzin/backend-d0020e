@@ -26,6 +26,7 @@ import java.util.UUID;
 public class FileUploadController {
 
     private final StorageService storageService;
+    private String lastCreatedSimulation="testFolder";
 
     @Autowired
     public FileUploadController(StorageService storageService) {
@@ -53,6 +54,20 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+
+    @CrossOrigin
+    @GetMapping("/mostRecent")
+    @ResponseBody
+    public SimulationResult mostRecent() {
+
+        SimulationResult sr = new SimulationResult();
+        sr.setSimulationID(lastCreatedSimulation);
+
+        return sr;
+    }
+
+
+
     @ResponseBody
     @PostMapping(value = "/process",consumes = MediaType.APPLICATION_JSON_VALUE)
     public SimulationResult process(@RequestBody SimulationModel simulationModel) throws Exception {
@@ -62,10 +77,14 @@ public class FileUploadController {
         String generatedID = UUID.randomUUID().toString().substring(0,4); //generera nytt id
 
         String simulationFolder = storageService.initializeProjectFolder(generatedID).toString() + "/"; //skapa en folder med id som namn
+        lastCreatedSimulation = generatedID;
 
         int nodes = Integer.parseInt(simulationModel.getNodes());
+        double runtime = Double.parseDouble(simulationModel.getRuntime());
+        long seed = Long.parseLong(simulationModel.getSeed());
+        double arrivalSpeed = Double.parseDouble(simulationModel.getArrivalSpeed());
 
-        Simulation.runSim(simulationFolder,nodes);
+        Simulation.simFromConfig(simulationFolder,nodes,runtime,seed,arrivalSpeed);
 
         simulationResult.setSimulationID(generatedID);
 
