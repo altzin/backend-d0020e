@@ -99,7 +99,7 @@ public class FileUploadController {
         String pathString = projectPath.toString()+ "/";
         //redirectAttributes.addFlashAttribute("message","You successfully uploaded " + file.getOriginalFilename() + " to the project folder " + pathString.substring(12,16) + "!");
 
-       // Simulation.runSim(file.getOriginalFilename(), pathString);
+        Simulation.runSim(file.getOriginalFilename(), pathString);
         SimulationResult simulationResult = new SimulationResult();
         simulationResult.setSimulationID(pathString.substring(12,16));
         return simulationResult;

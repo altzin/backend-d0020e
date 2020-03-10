@@ -19,6 +19,7 @@ public class Node{
     public String toString(){
         return Integer.toString(id);
     }
+
     public int toInt(){return id; }
 
     public double getMap(){return map;}
