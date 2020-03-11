@@ -25,7 +25,7 @@ public class Link {
      * @param destination
      */
     public Link(Node source, Node destination){
-        this.rand = new UniformRandomStream(-0.2,0.2);
+        this.rand = new UniformRandomStream(-0.1,0.1);
         //this.weight = rand.next();
         //this.rand = new Random();
         this.source = source;
