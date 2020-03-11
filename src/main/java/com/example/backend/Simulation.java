@@ -20,7 +20,7 @@ public class Simulation {
         long TIME_SEED = 1234;
         double ARRIVAL_SPEED = 32;
         System.out.println(projectPath);
-        P2PView view = new P2PView(projectPath, nrOfNodes);
+        P2PView view = new P2PView(projectPath, nrOfNodes, TIME_SIM_STOP);
         EventQueue eventQueue = new EventQueue();
         P2PState state = new P2PState(ARRIVAL_SPEED, TIME_SEED, nrOfNodes,eventQueue, TIME_SIM_STOP);
 
@@ -43,7 +43,7 @@ public class Simulation {
         double ARRIVAL_SPEED = arrivalSpeed;
 
         System.out.println(projectPath);
-        P2PView view = new P2PView(projectPath, nodes);
+        P2PView view = new P2PView(projectPath, nodes, TIME_SIM_STOP);
         EventQueue eventQueue = new EventQueue();
         P2PState state = new P2PState(ARRIVAL_SPEED, TIME_SEED, nodes,eventQueue, TIME_SIM_STOP);
 
