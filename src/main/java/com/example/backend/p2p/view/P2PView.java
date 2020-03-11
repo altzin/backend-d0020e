@@ -17,11 +17,13 @@ public class P2PView extends SimView {
     private String Filepath = "";
     private String result = "";
     private ArrayList<csvIO> csv = new ArrayList<>();
+    double simTime;
+    double nextAvgTime;
     /**
      * 
      * @param filepath
      */
-    public P2PView(String filepath, int nodeAmount) {
+    public P2PView(String filepath, int nodeAmount, double simTime) {
     	//this.Filepath = filepath;
     	for(int i = 0; i<nodeAmount; i++) {
     		csvIO temp = new csvIO();
@@ -30,6 +32,14 @@ public class P2PView extends SimView {
     		temp.matrixAdd("TIME,EVENT_TYPE,EVENT_SOURCE,EVENT_DESTINATION,MAP,INTERFERENCE");
     		csv.add(temp);
     	}
+    	csvIO temp = new csvIO();
+    	temp.setFile(filepath + "average.csv");
+    	temp.matrixNewLine();
+    	temp.matrixAdd("TIME,AVG_MAP");
+    	csv.add(temp);
+    	this.simTime=simTime;
+    	this.nextAvgTime = simTime/10;
+
     }
     @Override
     public void update(Observable o, Object arg){
@@ -41,7 +51,6 @@ public class P2PView extends SimView {
            // printFile(Filepath, true);
         	try {
 				for(int i = 0; i<csv.size(); i++) {
-					//csv.get(i).matrixNewLine();
 					//csv.get(i).matrixAdd(Integer.toString(state.getNode(i).getEventCounter()));
 					csv.get(i).saveCsvMatrix();
 				}
@@ -54,6 +63,22 @@ public class P2PView extends SimView {
     }
     public String generateProgress(P2PState state) {
     	String result = null;
+    	if(state.getElapsedTime() > this.nextAvgTime){
+    		this.nextAvgTime += simTime/10;
+			csvIO temp = csv.get(csv.size()-1);
+			temp.matrixNewLine();
+			double mapSum = 0;
+			double amount = 0;
+			for(int i = 0; i<csv.size()-1;i++){
+				ArrayList<ArrayList> tempMatrix = csv.get(i).getMatrix();
+				String tempMap = String.valueOf(tempMatrix.get(tempMatrix.size()-1).get(4));
+				mapSum += Double.parseDouble(tempMap);
+				amount++;
+			}
+			double mapAvg = mapSum/amount;
+			temp.matrixAdd(cutDecimals(state.getElapsedTime()));
+			temp.matrixAdd(cutDecimals(mapAvg));
+		}
     	if(state.getNodeWhoPerformedEvent() != "-") {
     		int node = Integer.parseInt(state.getNodeWhoPerformedEvent());
     		csvIO temp = csv.get(node);
