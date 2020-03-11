@@ -26,6 +26,8 @@ public class P2PView extends SimView {
     	for(int i = 0; i<nodeAmount; i++) {
     		csvIO temp = new csvIO();
     		temp.setFile(filepath + i + ".csv");
+    		temp.matrixNewLine();
+    		temp.matrixAdd("TIME,EVENT_TYPE,EVENT_SOURCE,EVENT_DESTINATION,MAP,INTERFERENCE");
     		csv.add(temp);
     	}
     }
@@ -39,8 +41,8 @@ public class P2PView extends SimView {
            // printFile(Filepath, true);
         	try {
 				for(int i = 0; i<csv.size(); i++) {
-					csv.get(i).matrixNewLine();
-					csv.get(i).matrixAdd(Integer.toString(state.getNode(i).getEventCounter()));
+					//csv.get(i).matrixNewLine();
+					//csv.get(i).matrixAdd(Integer.toString(state.getNode(i).getEventCounter()));
 					csv.get(i).saveCsvMatrix();
 				}
 			} catch (IOException e) {
@@ -73,9 +75,9 @@ public class P2PView extends SimView {
 				//destination
 				result +=  cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
 				temp.matrixAdd(state.getNodeDestination());
-				temp.matrixAdd("map:"+cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
-				temp.matrixAdd("Mean_Map:"+cutDecimals(state.getMeanMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
-				temp.matrixAdd("Counter: "+state.getEventCounter((Integer.parseInt(state.getNodeWhoPerformedEvent()))));
+				temp.matrixAdd(cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
+				temp.matrixAdd(cutDecimals(state.getMeanMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
+				//temp.matrixAdd(cutDecimals(state.getEventCounter((Integer.parseInt(state.getNodeWhoPerformedEvent())))));
 
 
     	}
