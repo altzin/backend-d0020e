@@ -36,6 +36,8 @@ public class P2PView extends SimView {
     	temp.setFile(filepath + "average.csv");
     	temp.matrixNewLine();
     	temp.matrixAdd("TIME,AVG_MAP");
+    	temp.matrixNewLine();
+    	temp.matrixAdd("0,0");
     	csv.add(temp);
     	this.simTime=simTime;
     	this.nextAvgTime = simTime/10;
