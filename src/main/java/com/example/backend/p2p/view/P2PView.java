@@ -72,9 +72,8 @@ public class P2PView extends SimView {
 			double mapSum = 0;
 			double amount = 0;
 			for(int i = 0; i<csv.size()-1;i++){
-				ArrayList<ArrayList> tempMatrix = csv.get(i).getMatrix();
-				String tempMap = String.valueOf(tempMatrix.get(tempMatrix.size()-1).get(4));
-				mapSum += Double.parseDouble(tempMap);
+				double tempMap = state.getNodeMap(i);
+				mapSum += tempMap;
 				amount++;
 			}
 			double mapAvg = mapSum/amount;
