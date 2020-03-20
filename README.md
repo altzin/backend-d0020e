@@ -49,3 +49,9 @@ curl -X POST localhost:8081/process -H 'Content-type:application/json' -d '{
     }'     
 
 ```
+
+## Legacy
+
+This project is based on this repository. But we decided to split this into two separate repositories.
+
+https://github.com/andregossip/D0020E-grupp4
