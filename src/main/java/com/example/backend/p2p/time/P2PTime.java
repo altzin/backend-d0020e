@@ -21,9 +21,9 @@ public class P2PTime {
 	}
 
 	/**
-	 * Returns time for next customer to arrive
-	 * 
-	 * @Return time for next customer
+	 * Returns time for next
+	 *
+	 * @Return time for next
 	 */
 	public double timeSendNextFile() {
 		return 0.1;

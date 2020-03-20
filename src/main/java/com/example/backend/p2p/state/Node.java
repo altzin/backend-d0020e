@@ -9,8 +9,6 @@ public class Node{
     private int nrOfSentFiles;
 
     /**
-     *  TODO
-     *  add so Map is generated random
      *
      * @param id
      * @param map
@@ -29,8 +27,17 @@ public class Node{
     public String toString(){
         return Integer.toString(id);
     }
+
+    /**
+     *
+     * @return Node id int
+     */
     public int toInt(){return id; }
 
+    /**
+     *
+     * @return map value
+     */
     public double getMap(){return map;}
 
     /**
@@ -40,19 +47,16 @@ public class Node{
      */
     public void addToMap(double value){
         if (this.map + value >= 1){
-            //this.sum_map += (1 - map);
             this.map = 1;
             this.sum_map +=map;
 
         }
         else if (this.map + value <= 0){
-            //this.sum_map -= map;
             this.map = 0;
             this.sum_map +=map;
 
         }
         else {
-            //this.sum_map += value;
             this.map = this.map + value;
             this.sum_map +=map;
 
@@ -60,7 +64,7 @@ public class Node{
     }
 
     /**
-     *
+     * Adds the counter for how many files a node has sent
      */
     public void addToEvent(){ nrOfSentFiles++;}
 

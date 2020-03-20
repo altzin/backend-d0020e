@@ -19,12 +19,14 @@ public class P2PView extends SimView {
     private ArrayList<csvIO> csv = new ArrayList<>();
     double simTime;
     double nextAvgTime;
-    /**
-     * 
-     * @param filepath
-     */
+
+	/**
+	 *
+	 * @param filepath
+	 * @param nodeAmount
+	 * @param simTime
+	 */
     public P2PView(String filepath, int nodeAmount, double simTime) {
-    	//this.Filepath = filepath;
     	for(int i = 0; i<nodeAmount; i++) {
     		csvIO temp = new csvIO();
     		temp.setFile(filepath + i + ".csv");
@@ -43,6 +45,15 @@ public class P2PView extends SimView {
     	this.nextAvgTime = simTime/10;
 
     }
+
+	/**
+	 * This method is being called every time an event happens.
+	 * If the simulator is running generateProgress is called and
+	 * saves the parameters. If the simulator is not running the
+	 * result is being printed to the files.
+	 * @param o
+	 * @param arg
+	 */
     @Override
     public void update(Observable o, Object arg){
         P2PState state = (P2PState) o;
@@ -63,9 +74,20 @@ public class P2PView extends SimView {
             //printConsole();
         }
     }
-    public String generateProgress(P2PState state) {
+
+	/**
+	 * This method saves all the parameters and adds them to
+	 * the correct csv matrix.
+	 * @param state
+	 * @return
+	 */
+	public String generateProgress(P2PState state) {
     	String result = null;
-    	if(state.getElapsedTime() > this.nextAvgTime){
+		/**
+		 * This if block computes the average map value
+		 * of all nodes.
+		 */
+		if(state.getElapsedTime() > this.nextAvgTime){
     		this.nextAvgTime += simTime/10;
 			csvIO temp = csv.get(csv.size()-1);
 			temp.matrixNewLine();
@@ -91,25 +113,29 @@ public class P2PView extends SimView {
     		result += state.getEventDescription();
     		temp.matrixAdd(state.getEventDescription());
     		if(state.getNodeWhoPerformedEvent() != "-") {
-    			result += state.getNodeWhoPerformedEvent();
+				// Adds source
+				result += state.getNodeWhoPerformedEvent();
+				temp.matrixAdd(state.getNodeWhoPerformedEvent());
     			result += "";
-
-    			//source
 				result +=  cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
 				result += "";
-				temp.matrixAdd(state.getNodeWhoPerformedEvent());
-				//destination
 				result +=  cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent())));
+				// Adds destination
 				temp.matrixAdd(state.getNodeDestination());
+				// Adds the mAP value
 				temp.matrixAdd(cutDecimals(state.getNodeMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
+				// Adds the average mAP value for the specific node
 				temp.matrixAdd(cutDecimals(state.getMeanMap(Integer.parseInt(state.getNodeWhoPerformedEvent()))));
-				//temp.matrixAdd(cutDecimals(state.getEventCounter((Integer.parseInt(state.getNodeWhoPerformedEvent())))));
-
-
     	}
     	}
     	return result;
     }
+
+	/**
+	 * This method is used to print the result to a regular file
+	 * @param filePath designated file path
+	 * @param overwrite overwrite current file path
+	 */
     @Override
     public void printFile(String filePath, boolean overwrite){
         File file = new File(filePath);
@@ -126,9 +152,18 @@ public class P2PView extends SimView {
 		}
     }
 
+	/**
+	 * Cuts of decimals
+	 * @param d
+	 * @return
+	 */
 	private String cutDecimals(double d) {
 		return new DecimalFormat("#.####").format(d);
 	}
+
+	/**
+	 * This method prints the result to console
+	 */
 	@Override
 	public void printConsole() {
 		System.out.println(result);

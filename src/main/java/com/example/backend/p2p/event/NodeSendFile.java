@@ -29,7 +29,8 @@ public class NodeSendFile extends Event {
     }
 
 	/**
-	 * Executes a Send File event
+	 * Executes a Send File event and adds the
+	 * LinkActivate event in the eventqueue.
 	 */
 	@Override
     public void runEvent() {
