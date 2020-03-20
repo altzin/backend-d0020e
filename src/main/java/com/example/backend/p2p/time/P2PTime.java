@@ -30,6 +30,12 @@ public class P2PTime {
 		//return nodeSendFile.next();
 	}
 
+	/**
+	 * Returns how many nodes a file should be sent to.
+	 * This is also used to decide which nodes to send to.
+	 * @param i
+	 * @return
+	 */
 	public int nrSendToNodes(int i) {
 		return sendToNodesGenerator.nextInt(i);
 	}
